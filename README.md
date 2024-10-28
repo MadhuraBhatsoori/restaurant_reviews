@@ -1,70 +1,19 @@
-# Getting Started with Create React App
+## Inspiration
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In today’s fast-paced dining culture, customers often want quick and reliable insights into a restaurant’s best dishes, rather than scrolling through endless reviews. Restaurant owners and managers similarly face challenges in processing hundreds of customer reviews to understand their strengths and pain points. While reviews are full of valuable information, finding and processing that information can be tedious. This application addresses the gap by allowing users to interact directly with restaurant reviews to uncover popular dishes, access quality, and make more informed dining decisions. The target audience includes food enthusiasts, restaurant owners, bloggers, and travellers looking for quick, data-driven dining insights.
 
-## Available Scripts
+## What it does
 
-In the project directory, you can run:
+Our application helps people to interact with restaurant reviews by using redpanda connect (open AI) to analyse and extract meaningful insights from customer experiences. User needs to enter restuarant name and simply chat with the app to discover top-rated menu items, get personalised dish recommendations, and understand the overall dining experience at any restaurant. For restaurant owners, it transforms scattered feedback into actionable business intelligence, tracking trends and customer satisfaction over time.
 
-### `npm start`
+## How we built it
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The application uses a combination of redpanda, mongoDB, openAI, pinecone, and react frontend to deliver real-time insights from customer reviews. MongoDB stores the raw reviews, which flow seamlessly into redpanda Connect, ensuring that new data is always available for processing without any interruptions. Once connected, Redpanda's serverless technology streams and processes these reviews in real-time, making sure every new piece of feedback is immediately accessible for insight generation.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+OpenAI embedding is used to transform reviews into vector embeddings, capturing the essence of the feedback. These embeddings are then stored in pinecone, a vector database that makes finding similar reviews a quick and efficient process. When users search for something specific, like the best dish recommendations or details about the dining experience, pinecone instantly retrieves reviews that match the meaning of their query, not just the words.
 
-### `npm test`
+The react frontend has a chat interface where users can freely explore the insights hidden within the reviews. They can ask questions, look for suggestions about different menu items or experiences. With each query, the frontend sends the request which is sent to openAI and pinecone to deliver the most relevant, meaningful responses, in just a few seconds.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Results
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Users can now make informed decisions quickly, enhancing their dining experiences and helps restaurant managers understand customer preferences for menu improvements. This approach can be replicated for other types of reviews, offering similar value across industries such as hospitality, retail, and e-commerce.
