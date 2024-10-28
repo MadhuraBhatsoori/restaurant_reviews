@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.home-background {
+  font-family: 'Arial', sans-serif;
+  background-image: url('./images/photo.png'); /* High-quality background image */
+  background-size: cover; /* Ensure the image covers the whole background */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  height: 100vh; /* Ensure body takes full height */
+}
+
+.container-home {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  padding: 0 50px;
+  background-color: transparent; /* Fully transparent to see the background image */
+}
+
+.content-home {
+  max-width: 50%;
+  color: #354128;
+  display: flex;
+  flex-direction: column; /* Stacks the elements vertically */
+  align-items: flex-start; /* Aligns items to the start of the flexbox container */
+}
+
+.title {
+  font-size: 3rem;
+  color: #354128;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 1.2rem;
+  color: #354128;
+}
+
+.chat-button {
+  background-color: transparent;
+  border: 2px solid #354128;
+  color: #354128;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 20px; /* Ensure margin is applied */
+  align-self: flex-start; /* Makes sure the button stays aligned to the left */
+}
+
+.chat-button:hover {
+  background-color: #3c3c3b;
+  color: #fff;
+}
+
+/* Optional: If you still want to keep the image in a container */
+.image-container {
+  width: 50%;
+  height: 80%;
+  border-radius: 15px;
+  display: none; /* Hide this if using body as background */
+}

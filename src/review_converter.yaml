@@ -1,0 +1,47 @@
+input:
+  label: ""
+  kafka_franz:
+    seed_brokers: 
+      - "cs678vbmmubpvun81e70.any.us-east-1.mpx.prd.cloud.redpanda.com:9092"
+    topics: 
+      - reviews
+    regexp_topics: true
+    consumer_group: "review-pipe" 
+    tls:
+      enabled: true
+    sasl:
+      - mechanism: "SCRAM-SHA-256"
+        username: "madhura"
+        password: "redpanda"
+
+pipeline:
+  processors:
+    - mapping: |
+        meta doc = this
+        meta summary = this.summary.string()
+        meta key = meta("kafka_key").string()
+    - log:
+        message: ${! meta() }
+    - branch:
+        processors:
+          - openai_embeddings:
+              server_address: https://api.openai.com/v1
+              api_key: "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"
+              model: text-embedding-3-small #1536 dimensions
+        result_map: |-
+          root.embeddings = this
+          root.metadata = metadata("doc").string()
+    - log:
+        message: ${! json("embeddings") }
+output:
+  pinecone:
+    max_in_flight: 64
+    host: "redpanda-s5vbo4z.svc.aped-4627-b74a.pinecone.io"
+    api_key: "23dd1521-3082-4d40-b835-f19d6cd5c706"
+    operation: upsert-vectors
+    id: ${! metadata("kafka_key").string() }
+    vector_mapping: embeddings
+    metadata_mapping: |- 
+      root.summary = @.summary
+      root.text = @.doc.string()
+      root.timestamp = timestamp_unix()

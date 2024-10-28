@@ -1,0 +1,6 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e6e6e8; /* Set a light gray background color for the body */
+  height: 100vh; /* Ensure body takes full height */
+  margin: 0; /* Remove default margin */
+}

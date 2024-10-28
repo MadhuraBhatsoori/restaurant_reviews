@@ -1,0 +1,44 @@
+input:
+  label: ""
+  mongodb:
+    url: mongodb://localhost:27017 # No default (required)
+    database: "redpanda" # No default (required)
+    username: ""
+    password: ""
+    collection: "redpanda" # No default (required)
+    query: '{}'
+    auto_replay_nacks: true
+    batch_size: 1000 # No default (optional)
+    sort: {} # No default (optional)
+    limit: 0 # No default (optional)
+pipeline:
+  processors:
+    - log:
+        message: ${! meta() }
+    - mapping: |
+        meta id = this.Restaurant
+        meta text = this.Review
+    - openai_chat_completion:
+        server_address: https://api.openai.com/v1
+        api_key: ${OPENAI_API_KEY}
+        model: gpt-4o
+        system_prompt: |
+          Summarize the restaurant reviews in 2 sentences: 
+    - mapping: |
+        root.id = meta("id")
+        root.text = meta("text")
+        root.summary = content().string()
+output:
+  kafka_franz:
+    seed_brokers:
+      - ${RP_BOOTSTRAP_SERVER}
+    topic: reviews
+    compression: none
+    key: ${! json("id") }
+    tls:
+      enabled: true
+    sasl:
+      - mechanism: ${RP_SASL_MECHANISM}
+        username: ${RP_USER_USERNAME}
+        password: ${RP_USER_PASSWORD}
+    
