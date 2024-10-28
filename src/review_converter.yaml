@@ -2,7 +2,7 @@ input:
   label: ""
   kafka_franz:
     seed_brokers: 
-      - "cs678vbmmubpvun81e70.any.us-east-1.mpx.prd.cloud.redpanda.com:9092"
+      - REDPANDA_SERVERLESS_HOST
     topics: 
       - reviews
     regexp_topics: true
@@ -26,7 +26,7 @@ pipeline:
         processors:
           - openai_embeddings:
               server_address: https://api.openai.com/v1
-              api_key: "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"
+              api_key: OPENAI_API_KEY
               model: text-embedding-3-small #1536 dimensions
         result_map: |-
           root.embeddings = this
@@ -36,8 +36,8 @@ pipeline:
 output:
   pinecone:
     max_in_flight: 64
-    host: "redpanda-s5vbo4z.svc.aped-4627-b74a.pinecone.io"
-    api_key: "23dd1521-3082-4d40-b835-f19d6cd5c706"
+    host: PINECONE_HOST
+    api_key: PINECONE_API_KEY
     operation: upsert-vectors
     id: ${! metadata("kafka_key").string() }
     vector_mapping: embeddings
