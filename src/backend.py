@@ -10,9 +10,9 @@ app = Flask(__name__)
 CORS(app)
 
 # Initialize Pinecone and OpenAI
-pc = Pinecone(api_key="23dd1521-3082-4d40-b835-f19d6cd5c706")
+pc = Pinecone(api_key="PINECONE_API_KEY")
 llm = ChatOpenAI(
-    openai_api_key="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",
+    openai_api_key=OPENAI_API_KEY,
     model_name="gpt-4-turbo",
     temperature=1.0
 )
@@ -22,7 +22,7 @@ index = pc.Index("redpanda")
 vector_store = PineconeVectorStore(
     index=index,
     embedding=OpenAIEmbeddings(
-        openai_api_key="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"
+        openai_api_key=OPENAI_API_KEY
     )
 )
 
