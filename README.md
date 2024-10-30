@@ -5,14 +5,14 @@ Register for Redpanda Serverless, Pinecone and openAI. Create an .env file to sa
 1. Clone the repository.
 2. Navigate to src folder in the directory.
 3. Install redpanda RPK and requirements.txt
-4. Run mongo_load.yaml to load the data.
-   rpk connect run -e .env mongo_load.yaml
-5. Run review_converter locally or deploy it on Redpanda Serverless.
+4. Run mongo_load.yaml to load the data:
+    rpk connect run -e .env mongo_load.yaml
+5. Run review_converter locally or deploy it on Redpanda Serverless:
     rpk connect run -e .env review_converter.yaml
-6. Run flask server as backend
+6. Run flask server as backend:
     python3 backend.py
-7. Run react application to chat
-   npm start
+7. Run react application to chat:
+    npm start
 
 
 
